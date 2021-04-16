@@ -1,6 +1,6 @@
 const pUnit = 8
-const regularFont = 400 
-const semiBoldFont = 600 
+const regularFont = 400
+const semiBoldFont = 600
 
 export const theme = {
     colors: {
@@ -46,9 +46,15 @@ export const theme = {
             fontWeight: regularFont,
             fontSize: '13px',
             color: '#616D82',
+        },
+        button: {
+            fontWeight: semiBoldFont,
+            fontSize: '15px',
+            color: 'white'
         }
     },
     spacing: (val) => `${val * pUnit}px`,
-    spacingY: (val) => `0 ${val * pUnit}px 0 ${val * pUnit}px`,
-    spacingX: (val) => `${val * pUnit}px 0 ${val * pUnit}px 0`,
+    spacingY: (val) => `0 ${val * pUnit}px`,
+    spacingX: (val) => `${val * pUnit}px 0`,
+    spacingXY: (x, y) => `${x * pUnit}px ${y * pUnit}px`,
 }

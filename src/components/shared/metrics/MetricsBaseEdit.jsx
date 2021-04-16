@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useLocation } from 'react-router'
 import { Redirect } from 'react-router-dom'
+import { Button } from '../../design'
 
 const MetricsBaseEdit = ({ title }) => {
     const { pathname, state } = useLocation()
@@ -23,7 +24,7 @@ const MetricsBaseEdit = ({ title }) => {
                         <input type="number" value={value} />
                     </div>
 
-                    <button type="submit">Submit</button>
+                    <Button type="submit">Submit</Button>
                 </form>
             </div>
         </div>
