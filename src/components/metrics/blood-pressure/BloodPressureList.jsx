@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { MetricsBaseList } from '../../shared'
 
 const BloodPressureList = props => {
@@ -16,8 +15,5 @@ const BloodPressureList = props => {
     )
 }
 
-BloodPressureList.propTypes = {
-
-}
 
 export default BloodPressureList

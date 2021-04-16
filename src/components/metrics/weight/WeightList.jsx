@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { MetricsBaseList } from '../../shared'
 
 const WeightList = props => {
@@ -16,8 +15,5 @@ const WeightList = props => {
     )
 }
 
-WeightList.propTypes = {
-
-}
 
 export default WeightList

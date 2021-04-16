@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { MetricsBaseEdit } from '../../shared'
 
 const WeightEdit = props => {
@@ -8,8 +7,6 @@ const WeightEdit = props => {
     )
 }
 
-WeightEdit.propTypes = {
 
-}
 
 export default WeightEdit
