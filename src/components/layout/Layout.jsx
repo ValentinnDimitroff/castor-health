@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import Menu from './Menu'
+import { Typography } from '../design'
 
 const useStyles = createUseStyles(theme => ({
     container: {
@@ -14,7 +15,11 @@ const useStyles = createUseStyles(theme => ({
         backgroundColor: theme.colors.primary.main,
         flex: "0 0 100%",
         height: "60px",
-        display: "inline-block"
+        display: "inline-block",
+        paddingLeft: theme.spacing(2)
+    },
+    title: {
+        color: 'white'
     },
     sideBar: {
         padding: theme.spacing(1),
@@ -44,7 +49,7 @@ const Layout = ({ children }) => {
     return (
         <div className={classes.container}>
             <header className={classes.appBar}>
-
+                <Typography variant="title" className={classes.title}>Castor Health</Typography>
             </header>
             <div className={classes.main}>
                 <div className={classes.sideBar}>

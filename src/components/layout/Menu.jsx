@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { Link } from 'react-router-dom'
 
@@ -25,8 +25,8 @@ const Menu = () => {
     )
 }
 
-Menu.propTypes = {
+// Menu.propTypes = {
 
-}
+// }
 
 export default Menu
