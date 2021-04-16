@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { useHistory, useLocation } from 'react-router'
-import { Typography } from '../../design'
+import { Button, Typography } from '../../design'
 
 const useStyles = createUseStyles(theme => ({
     list: {
         listStyle: 'none',
         "& li": {
             padding: theme.spacing(1),
-            "& span": {
+            "& > span": {
                 display: 'inline-block',
                 padding: theme.spacingY(2),
                 "&:nth-child(1)": {
@@ -26,36 +26,23 @@ const useStyles = createUseStyles(theme => ({
                 }
             },
         }
+    },
+    toolbar: {
+        display: 'flex',
+        justifyContent: 'flex-end',
     }
 }))
 
-const MetricsBaseList = ({ title, records, ...props }) => {
+const MetricsBaseList = React.memo(({ title, records, ...props }) => {
     const classes = useStyles()
-
-    return (
-        <div {...props}>
-            <Typography variant="heading">{title}</Typography>
-            <div>
-                <ul className={classes.list}>
-                    <li>
-                        <span>Measured On</span>
-                        <span>Value</span>
-                        <span>Trend</span>
-                    </li>
-                    {records
-                        ? records.map(x => <RecordRow key={x.id} {...x} />)
-                        : <EmptyList />}
-                </ul>
-            </div>
-        </div>
-    )
-}
-
-const RecordRow = ({ id, date, value }) => {
     const histoty = useHistory()
     const { pathname } = useLocation()
 
-    const onClick = () => {
+    const onAddClick = () => {
+        histoty.push(`${pathname}/create`)
+    }
+
+    const onEditClcik = ({ id, date, value, }) => {
         histoty.push({
             pathname: `${pathname}/edit/${id}`,
             state: { id, date, value }
@@ -63,14 +50,39 @@ const RecordRow = ({ id, date, value }) => {
     }
 
     return (
+        <div {...props}>
+            <Typography variant="heading">{title}</Typography>
+            <div>
+                <div className={classes.toolbar}>
+                    <Button onClick={onAddClick}>+ Add New</Button>
+                </div>
+                <ul className={classes.list}>
+                    <li>
+                        <Typography variant="label" Component="span">Measured On</Typography>
+                        <Typography variant="label" Component="span">Value</Typography>
+                        <Typography variant="label" Component="span">Trend</Typography>
+                    </li>
+                    {records
+                        ? records.map(x => <RecordRow key={x.id} {...x} onEditClcik={onEditClcik} />)
+                        : <EmptyList />}
+                </ul>
+            </div>
+        </div>
+    )
+})
+
+const RecordRow = React.memo(({ onEditClcik, ...props }) => {
+    const { date, value } = props
+
+    return (
         <li >
             <span>{date}</span>
             <span>{value}</span>
             <span>--</span>
-            <button onClick={onClick}>Edit</button>
+            <Button color="primary" onClick={() => onEditClcik(props)}>Edit</Button>
         </li>
     )
-}
+})
 
 const EmptyList = () => (
     <p>No records found</p>
