@@ -1,17 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { singleMetricSelector } from '../../../store'
 import { MetricsBaseList } from '../../shared'
 
-const BloodPressureList = props => {
-    const data = [
-        { id: 1, date: '2021-02-29', value: 10.2 },
-        { id: 2, date: '2021-02-29', value: 10.2 },
-        { id: 3, date: '2021-02-29', value: 10.2 },
-        { id: 4, date: '2021-02-29', value: 10.2 },
-        { id: 5, date: '2021-02-29', value: 10.2 },
-    ]
-    
+const BloodPressureList = () => {
+    const { data, average } = useSelector(singleMetricSelector("blood-pressure"))
+
     return (
-        <MetricsBaseList title="Blood Pressure" records={data}/>
+        <MetricsBaseList title="Blood Pressure" records={data} average={average} />
     )
 }
 
