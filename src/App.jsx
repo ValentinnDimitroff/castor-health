@@ -23,7 +23,8 @@ const theme = {
 		heading: {
 			// TODO
 		}
-	}
+	},
+	spacing: (val) => `${val * 8}px`
 }
 
 const App = () => {
