@@ -55,7 +55,10 @@ const RecordRow = ({ id, date, value }) => {
     const { pathname } = useLocation()
 
     const onClick = () => {
-        histoty.push(`${pathname}/edit/${id}`)
+        histoty.push({
+            pathname: `${pathname}/edit/${id}`,
+            state: { id, date, value }
+        })
     }
 
     return (
