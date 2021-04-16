@@ -38,6 +38,9 @@ const MetricsForm = ({
         <form ref={formRef}>
             <div className={classes.form}>
                 <div>
+                    <Typography variant="label">
+                        Enter Value
+                    </Typography>
                     <TextInput value={value} onChange={onChange} />
                     <Typography variant="body" Component="span" className={classes.unit}>
                         {unit}

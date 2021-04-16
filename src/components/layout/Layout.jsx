@@ -16,9 +16,9 @@ const useStyles = createUseStyles(theme => ({
         flex: "0 0 100%",
         height: "60px",
         display: "inline-block",
-        paddingLeft: theme.spacing(2)
     },
     title: {
+        paddingLeft: theme.spacing(2),
         color: 'white'
     },
     sideBar: {
