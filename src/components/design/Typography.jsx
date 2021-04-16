@@ -6,17 +6,25 @@ const useStyles = createUseStyles(theme => ({
     typo: props => theme.font[props.variant]
 }))
 
-const Typography = ({ variant, className, children, ...props }) => {
+const Typography = ({
+    variant = "body",
+    Component = "p",
+    className,
+    children,
+    ...props
+}) => {
     const classes = useStyles({ variant })
+
     return (
-        <p className={`${classes.typo} ${className || ""}`} {...props}>
+        <Component className={`${classes.typo} ${className || ""}`} {...props}>
             {children}
-        </p>
+        </Component>
     )
 }
 
 Typography.propTypes = {
     variant: PropTypes.string,
+    Component: PropTypes.string,
 }
 
 export default Typography
