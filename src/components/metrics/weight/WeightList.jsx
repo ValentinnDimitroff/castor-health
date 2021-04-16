@@ -1,7 +1,7 @@
 import React from 'react'
 import { MetricsBaseList } from '../../shared'
 
-const WeightList = props => {
+const WeightList = () => {
     const data = [
         { id: 1, date: '2021-02-29', value: 68 },
         { id: 2, date: '2021-02-29', value: 73.6 },
@@ -11,7 +11,7 @@ const WeightList = props => {
     ]
 
     return (
-        <MetricsBaseList title="Weight" records={data} />
+        <MetricsBaseList title="Weight" records={data} unit="kg" />
     )
 }
 

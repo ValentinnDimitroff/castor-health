@@ -1,7 +1,7 @@
 import React from 'react'
 import { MetricsBaseEdit } from '../../shared'
 
-const BloodGlucoseEdit = props => {
+const BloodGlucoseEdit = () => {
     return (
         <MetricsBaseEdit title="Blood Glucose" />
     )

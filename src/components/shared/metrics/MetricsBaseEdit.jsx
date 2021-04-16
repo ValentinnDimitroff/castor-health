@@ -4,7 +4,7 @@ import { useLocation } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import MetricsForm from './MetricsForm'
 
-const MetricsBaseEdit = ({ title }) => {
+const MetricsBaseEdit = ({ title, unit }) => {
     const { pathname, state } = useLocation()
     const resourceListPath = `/${pathname.split('/')[1]}`
 
@@ -17,7 +17,7 @@ const MetricsBaseEdit = ({ title }) => {
         <div>
             <h1>{`Edit ${title} Record - ID:${state.id}`}</h1>
             <div>
-                <MetricsForm {...state}/>
+                <MetricsForm {...state} unit={unit} />
             </div>
         </div>
     )
@@ -25,6 +25,7 @@ const MetricsBaseEdit = ({ title }) => {
 
 MetricsBaseEdit.propTypes = {
     title: PropTypes.string,
+    unit: PropTypes.string,
 }
 
 export default MetricsBaseEdit

@@ -33,7 +33,12 @@ const useStyles = createUseStyles(theme => ({
     }
 }))
 
-const MetricsBaseList = React.memo(({ title, records, ...props }) => {
+const MetricsBaseList = React.memo(({
+    title,
+    unit,
+    records,
+    ...props
+}) => {
     const classes = useStyles()
     const histoty = useHistory()
     const { pathname } = useLocation()
@@ -63,7 +68,7 @@ const MetricsBaseList = React.memo(({ title, records, ...props }) => {
                         <Typography variant="label" Component="span">Trend</Typography>
                     </li>
                     {records
-                        ? records.map(x => <RecordRow key={x.id} {...x} onEditClcik={onEditClcik} />)
+                        ? records.map(x => <RecordRow key={x.id} {...x} unit={unit} onEditClcik={onEditClcik} />)
                         : <EmptyList />}
                 </ul>
             </div>
@@ -72,12 +77,12 @@ const MetricsBaseList = React.memo(({ title, records, ...props }) => {
 })
 
 const RecordRow = React.memo(({ onEditClcik, ...props }) => {
-    const { date, value } = props
+    const { date, value, unit } = props
 
     return (
         <li >
             <span>{date}</span>
-            <span>{value}</span>
+            <span>{value} {unit}</span>
             <span>--</span>
             <Button color="primary" onClick={() => onEditClcik(props)}>Edit</Button>
         </li>

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, TextInput } from '../../design'
+import { Button, TextInput, Typography } from '../../design'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles(theme => ({
@@ -10,12 +10,16 @@ const useStyles = createUseStyles(theme => ({
         "& > div": {
             padding: theme.spacing(2)
         }
+    },
+    unit: {
+        paddingLeft: theme.spacing(1)
     }
 }))
 
 const MetricsForm = ({
     id,
-    value: initialValue
+    value: initialValue,
+    unit,
 }) => {
     const editMode = !!id
     const formRef = useRef()
@@ -35,6 +39,9 @@ const MetricsForm = ({
             <div className={classes.form}>
                 <div>
                     <TextInput value={value} onChange={onChange} />
+                    <Typography variant="body" Component="span" className={classes.unit}>
+                        {unit}
+                    </Typography>
                 </div>
                 <div>
                     <Button onClick={onSubmit}>Submit</Button>
