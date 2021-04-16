@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, TextInput, Typography } from '../../design'
 import { createUseStyles } from 'react-jss'
+import { useHistory } from 'react-router'
 
 const useStyles = createUseStyles(theme => ({
     form: {
@@ -18,11 +19,13 @@ const useStyles = createUseStyles(theme => ({
 
 const MetricsForm = ({
     id,
-    value: initialValue,
+    value: initialValue = 0,
+    redirectPath,
     unit,
+    onSubmit = () => { },
 }) => {
-    const editMode = !!id
     const formRef = useRef()
+    const history = useHistory()
     const classes = useStyles()
     const [value, setValue] = useState(initialValue)
 
@@ -30,9 +33,13 @@ const MetricsForm = ({
         setValue(e.target.value)
     }
 
-    const onSubmit = () => {
-        formRef.current.submit()
-    }
+    const _onSubmit = useCallback(
+        () => {
+            onSubmit({ id, value })
+            history.push(redirectPath)
+        },
+        [onSubmit, id, value]
+    )
 
     return (
         <form ref={formRef}>
@@ -47,7 +54,7 @@ const MetricsForm = ({
                     </Typography>
                 </div>
                 <div>
-                    <Button onClick={onSubmit}>Submit</Button>
+                    <Button onClick={_onSubmit}>Submit</Button>
                 </div>
             </div>
         </form>

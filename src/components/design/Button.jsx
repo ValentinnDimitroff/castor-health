@@ -27,7 +27,7 @@ const Button = ({ color = "primary", children, ...props }) => {
 }
 
 Button.propTypes = {
-
+    color: PropTypes.string,
 }
 
 export default Button
