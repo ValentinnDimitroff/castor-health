@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  height: 100%;
+  color: #1B2C4B;
   font-family: 'Lato', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

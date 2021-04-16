@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { useHistory, useLocation } from 'react-router'
+import { Typography } from '../../design'
 
 const useStyles = createUseStyles(theme => ({
     list: {
@@ -33,7 +34,7 @@ const MetricsBaseList = ({ title, records, ...props }) => {
 
     return (
         <div {...props}>
-            <h1>{title}</h1>
+            <Typography variant="heading">{title}</Typography>
             <div>
                 <ul className={classes.list}>
                     <li>
