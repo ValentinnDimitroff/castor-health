@@ -1,5 +1,7 @@
-import { ThemeProvider } from 'theming';
+import { ThemeProvider } from 'react-jss'
+import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from './components';
+import Routes from './Routes';
 
 const theme = {
 	colors: {
@@ -29,11 +31,13 @@ const theme = {
 
 const App = () => {
 	return (
-		<ThemeProvider theme={theme}>
-			<Layout>
-				Routing
-			</Layout>
-		</ThemeProvider>
+		<Router>
+			<ThemeProvider theme={theme}>
+				<Layout>
+					<Routes />
+				</Layout>
+			</ThemeProvider>
+		</Router>
 	);
 }
 

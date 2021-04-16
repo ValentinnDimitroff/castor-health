@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
+import Menu from './Menu'
 
 const SIDE_BAR_WIDTH = 250
 
@@ -12,16 +13,20 @@ const useStyles = createUseStyles(theme => ({
     sideBar: {
         display: 'inline-block',
         width: `${SIDE_BAR_WIDTH}px`,
-        height: 'max-content',
+        height: 'auto',
         padding: theme.spacing(2),
-        paddingLeft: theme.spacing(3)
+        paddingLeft: theme.spacing(3),
+        borderRight: '1px solid gray',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
     },
     main: {
-        display: 'inline-block',
-        // width: `calc(100% - ${SIDE_BAR_WIDTH}px)`,
+        display: 'flex',
         width: 'max-content',
-        height: 'max-content',
+        height: '100%',
         padding: theme.spacing(2),
+        flex: '1 1 auto',
     },
     footer: {
 
@@ -34,13 +39,10 @@ const Layout = ({ children }) => {
     return (
         <div>
             <header className={classes.appBar}>
-                
+
             </header>
             <div className={classes.sideBar}>
-                <div>Menu</div>
-                <div>Blood pressure</div>
-                <div>Weight</div>
-                <div>Blood glucose level</div>
+                <Menu />
             </div>
             <div className={classes.main}>
                 {children}
