@@ -8,12 +8,12 @@ const loggerMiddleware = createLogger();
 const middlewares = [];
 
 if (process.env.NODE_ENV === 'development') {
-    middlewares.push(loggerMiddleware);
+    middlewares.push(loggerMiddleware)
 }
 
 const store = createStore(
     rootReducer,
     applyMiddleware(...middlewares)
-);
+)
 
 export default store

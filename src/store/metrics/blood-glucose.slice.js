@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { commonMetricReducer } from '../_utils'
+import db from '../../db.json'
 
 const name = 'blood-glucose'
 
 const initialState = {
-    data: [],
+    data: db[name],
     average: 0
 }
 

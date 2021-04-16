@@ -15,7 +15,8 @@ const metricsActions = {
     [weightSlice.name]: weightSlice.actions,
 }
 
-// export * from './weight.selectors'
+export const singleMetricSelector = (key) => state => state.metrics[key]
+
 export { metricsActions }
 
 export default metricsReducer
