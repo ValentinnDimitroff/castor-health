@@ -3,33 +3,38 @@ import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import Menu from './Menu'
 
-const SIDE_BAR_WIDTH = 250
-
 const useStyles = createUseStyles(theme => ({
+    container: {
+        minHeight: "100vh",
+        display: "inline-flex",
+        flexFlow: "row wrap",
+        width: "100%"
+    },
     appBar: {
         backgroundColor: theme.colors.primary.main,
-        height: '60px'
+        flex: "0 0 100%",
+        height: "60px",
+        display: "inline-block"
     },
     sideBar: {
-        display: 'inline-block',
-        width: `${SIDE_BAR_WIDTH}px`,
-        height: 'auto',
-        padding: theme.spacing(2),
-        paddingLeft: theme.spacing(3),
+        padding: theme.spacing(1),
         borderRight: '1px solid gray',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
+        width: '250px'
     },
     main: {
         display: 'flex',
-        width: 'max-content',
-        height: '100%',
+        width: '100%',
+        height: 'calc(100vh - 155px)',
         padding: theme.spacing(2),
-        flex: '1 1 auto',
+    },
+    content: {
+        padding: theme.spacing(2)
     },
     footer: {
-
+        flex: "0 0 100%",
+        height: "60px",
+        display: "inline-block",
+        backgroundColor: 'gray',
     },
 }))
 
@@ -37,15 +42,17 @@ const Layout = ({ children }) => {
     const classes = useStyles()
 
     return (
-        <div>
+        <div className={classes.container}>
             <header className={classes.appBar}>
 
             </header>
-            <div className={classes.sideBar}>
-                <Menu />
-            </div>
             <div className={classes.main}>
-                {children}
+                <div className={classes.sideBar}>
+                    <Menu />
+                </div>
+                <div className={classes.content}>
+                    {children}
+                </div>
             </div>
             <footer className={classes.footer}>
 
