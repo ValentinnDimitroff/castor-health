@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useLocation } from 'react-router'
 import { Redirect } from 'react-router-dom'
-import { Button } from '../../design'
+import MetricsForm from './MetricsForm'
 
 const MetricsBaseEdit = ({ title }) => {
     const { pathname, state } = useLocation()
@@ -13,19 +13,11 @@ const MetricsBaseEdit = ({ title }) => {
     if (!state)
         return <Redirect to={resourceListPath} />
 
-    const { id, value } = state
-
     return (
         <div>
-            <h1>{`Edit ${title} Record - ID:${id}`}</h1>
+            <h1>{`Edit ${title} Record - ID:${state.id}`}</h1>
             <div>
-                <form>
-                    <div>
-                        <input type="number" value={value} />
-                    </div>
-
-                    <Button type="submit">Submit</Button>
-                </form>
+                <MetricsForm {...state}/>
             </div>
         </div>
     )
