@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import Menu from './Menu'
 import { Typography } from '../design'
+import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles(theme => ({
     container: {
-        minHeight: "100vh",
+        // minHeight: "100vh",
         display: "inline-flex",
         flexFlow: "row wrap",
-        width: "100%"
+        width: "100%",
+        height: "100%",
     },
     appBar: {
         backgroundColor: theme.colors.primary.main,
@@ -29,7 +31,7 @@ const useStyles = createUseStyles(theme => ({
     main: {
         display: 'flex',
         width: '100%',
-        height: 'calc(100vh - 155px)',
+        minHeight: 'calc(100vh - 152px)',
         padding: theme.spacing(2),
     },
     content: {
@@ -49,7 +51,9 @@ const Layout = ({ children }) => {
     return (
         <div className={classes.container}>
             <header className={classes.appBar}>
-                <Typography variant="title" className={classes.title}>Castor Health</Typography>
+                <Link to="/">
+                    <Typography variant="title" className={classes.title}>Castor Health</Typography>
+                </Link>
             </header>
             <div className={classes.main}>
                 <div className={classes.sideBar}>
