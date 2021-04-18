@@ -12,12 +12,11 @@ const useIconStyles = createUseStyles(theme => ({
     }
 }))
 
-const MetricsListRow = React.memo(({ onEditClcik, trend, ...props }) => {
+const MetricsListRow = React.memo(({ id, trend, date, value, unit, onEditClcik, ...props }) => {
     const classes = useIconStyles()
-    const { date, value, unit } = props
 
     return (
-        <li >
+        <li {...props}>
             <Typography variant="body" Component="span">{date}</Typography>
             <Typography variant="body" Component="span">{value} {unit}</Typography>
             <span>
@@ -28,7 +27,7 @@ const MetricsListRow = React.memo(({ onEditClcik, trend, ...props }) => {
                     : null
                 }
             </span>
-            <Button color="primary" onClick={() => onEditClcik(props)}>
+            <Button color="primary" onClick={() => onEditClcik(id)}>
                 Edit
             </Button>
         </li>

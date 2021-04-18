@@ -6,17 +6,18 @@ import { Redirect } from 'react-router-dom'
 import MetricsForm from './MetricsForm'
 import { metricsActions, getMetricEntryByIdSelector } from '../../../store'
 
-const MetricsBaseEdit = React.memo(({ title, metricKey }) => {
+const MetricsBaseEdit = React.memo(({ title, metricKey, ...props }) => {
     const dispatch = useDispatch()
     const { id } = useParams()
     const { pathname } = useLocation()
+    
     const resourceListPath = `/${pathname.split('/')[1]}`
     const entryData = useSelector(getMetricEntryByIdSelector(id, metricKey))
 
     const onSubmit = (payload) => {
         dispatch(metricsActions[metricKey].updateEntry(payload))
     }
-    
+
     // If edit page is reloaded and there is no state 
     // -> redirect to the corresponding list view
     if (!entryData)
@@ -26,7 +27,12 @@ const MetricsBaseEdit = React.memo(({ title, metricKey }) => {
         <div>
             <h1>{`Edit ${title} Record - ID:${id}`}</h1>
             <div>
-                <MetricsForm redirectPath={resourceListPath} onSubmit={onSubmit} {...entryData} />
+                <MetricsForm
+                    redirectPath={resourceListPath}
+                    onSubmit={onSubmit}
+                    {...entryData}
+                    {...props}
+                />
             </div>
         </div>
     )

@@ -1,57 +1,36 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { createUseStyles } from 'react-jss'
 import { useHistory, useLocation } from 'react-router'
-import { Button, MuiIcons, Typography } from '../../design'
-
-const useStyles = createUseStyles(theme => ({
-    list: {
-        listStyle: 'none',
-        "& li": {
-            padding: theme.spacing(1),
-            "& > span": {
-                display: 'inline-block',
-                padding: theme.spacingY(2),
-                "&:nth-child(1)": {
-                    // Date
-                    width: '150px',
-                },
-                "&:nth-child(2)": {
-                    // Value
-                    width: '100px',
-                },
-                "&:nth-child(3)": {
-                    // Trend
-                    width: '100px',
-                }
-            },
-        }
-    },
-    toolbar: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-    }
-}))
+import { Button, Typography } from '../../design'
+import MetricsListRow from './MetricsListRow'
+import useListStyles from './useListStyles'
 
 const MetricsBaseList = React.memo(({
     title,
     unit,
+    average,
     records,
     ...props
 }) => {
-    const classes = useStyles()
+    const classes = useListStyles()
     const histoty = useHistory()
     const { pathname } = useLocation()
 
-    const onAddClick = () => {
-        histoty.push(`${pathname}/create`)
-    }
+    const onAddClick = useCallback(
+        () => histoty.push(`${pathname}/create`),
+        [histoty, pathname]
+    )
 
-    const onEditClcik = ({ id, date, value, }) => {
-        histoty.push({
-            pathname: `${pathname}/edit/${id}`,
-            state: { id, date, value }
-        })
+    const onEditClcik = useCallback(
+        (id) => histoty.push(`${pathname}/edit/${id}`),
+        [histoty, pathname]
+    )
+
+    // Decide if current record's value is higher or lower than previous one
+    const getTrend = (record, previousRecord) => {
+        return record.value > previousRecord.value
+            ? "up"
+            : "down"
     }
 
     return (
@@ -59,7 +38,10 @@ const MetricsBaseList = React.memo(({
             <Typography variant="heading">{title}</Typography>
             <div>
                 <div className={classes.toolbar}>
-                    <Button onClick={onAddClick}>+ Add New</Button>
+                    <AverageLabel value={average} />
+                    <div className={classes.toolbarActions}>
+                        <Button onClick={onAddClick}>+ Add New</Button>
+                    </div>
                 </div>
                 <ul className={classes.list}>
                     <li>
@@ -69,11 +51,13 @@ const MetricsBaseList = React.memo(({
                     </li>
                     {records
                         ? records.map((x, i) => (
-                            <RecordRow
-                                {...x}
+                            <MetricsListRow
                                 key={x.id}
+                                {...x}
                                 unit={unit}
-                                trend={i === 0 ? undefined : x.value > records[i - 1].value ? "up" : "down"}
+                                trend={i === 0
+                                    ? undefined
+                                    : getTrend(x, records[i - 1])}
                                 onEditClcik={onEditClcik}
                             />
                         ))
@@ -84,33 +68,16 @@ const MetricsBaseList = React.memo(({
     )
 })
 
-const useIconStyles = createUseStyles(theme => ({
-    upIcon: {
-       color: theme.colors.success.main,
-    },
-    downIcon: {
-        color: theme.colors.error.main,
-     }
-}))
-
-const RecordRow = React.memo(({ onEditClcik, trend, ...props }) => {
-    const classes = useIconStyles()
-    const { date, value, unit } = props
-
+const AverageLabel = ({ value }) => {
     return (
-        <li >
-            <span>{date}</span>
-            <span>{value} {unit}</span>
-            <span>{trend
-                ? trend === "up"
-                    ? <MuiIcons.ArrowDropUpIcon className={classes.upIcon}/>
-                    : <MuiIcons.ArrowDropDownIcon className={classes.downIcon} />
-                : null
-            }</span>
-            <Button color="primary" onClick={() => onEditClcik(props)}>Edit</Button>
-        </li>
+        <>
+            <Typography variant="label" Component="span">Average:</Typography>
+            <Typography variant="body" Component="span" style={{ paddingLeft: 8 }}>
+                {value.toFixed(2)}
+            </Typography>
+        </>
     )
-})
+}
 
 const EmptyList = () => (
     <p>No records found</p>
