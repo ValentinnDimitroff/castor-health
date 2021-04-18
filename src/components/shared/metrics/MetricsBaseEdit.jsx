@@ -1,23 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useLocation } from 'react-router'
+import { useSelector, useDispatch } from 'react-redux'
+import { useLocation, useParams } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import MetricsForm from './MetricsForm'
+import { metricsActions, getMetricEntryByIdSelector } from '../../../store'
 
-const MetricsBaseEdit = React.memo(({ title, ...props }) => {
-    const { pathname, state } = useLocation()
+const MetricsBaseEdit = React.memo(({ title, metricKey }) => {
+    const dispatch = useDispatch()
+    const { id } = useParams()
+    const { pathname } = useLocation()
     const resourceListPath = `/${pathname.split('/')[1]}`
+    const entryData = useSelector(getMetricEntryByIdSelector(id, metricKey))
 
+    const onSubmit = (payload) => {
+        dispatch(metricsActions[metricKey].updateEntry(payload))
+    }
+    
     // If edit page is reloaded and there is no state 
     // -> redirect to the corresponding list view
-    if (!state)
+    if (!entryData)
         return <Redirect to={resourceListPath} />
 
     return (
         <div>
-            <h1>{`Edit ${title} Record - ID:${state.id}`}</h1>
+            <h1>{`Edit ${title} Record - ID:${id}`}</h1>
             <div>
-                <MetricsForm redirectPath={resourceListPath} {...state} {...props} />
+                <MetricsForm redirectPath={resourceListPath} onSubmit={onSubmit} {...entryData} />
             </div>
         </div>
     )
