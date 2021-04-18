@@ -38,7 +38,7 @@ const MetricsForm = ({
             onSubmit({ id, value })
             history.push(redirectPath)
         },
-        [onSubmit, id, value]
+        [onSubmit, id, value, history, redirectPath]
     )
 
     return (

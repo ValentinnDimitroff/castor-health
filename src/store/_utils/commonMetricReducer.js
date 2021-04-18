@@ -2,13 +2,13 @@ export const commonMetricReducer = {
     addEntry(state, { payload }) {
         state.data.push({
             id: state.data.lenght,
-            value: payload,
+            value: payload.value,
             date: Date.now().toString()
         })
     },
     updateEntry(state, { payload }) {
         state.data.forEach((item, i) => {
-            if (item.id === payload.id) {                
+            if (item.id === payload.id) {
                 state.data[i].value = parseFloat(payload.value)
                 return
             }
