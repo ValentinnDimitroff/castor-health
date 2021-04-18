@@ -9,14 +9,12 @@ const metricsReducer = combineReducers({
     [weightSlice.name]: weightSlice.reducer
 })
 
-const metricsActions = {
+export const metricsActions = {
     [bloodGlucoseSlice.name]: bloodGlucoseSlice.actions,
     [bloodPressureSlice.name]: bloodPressureSlice.actions,
     [weightSlice.name]: weightSlice.actions,
 }
 
-export const singleMetricSelector = (key) => state => state.metrics[key]
-
-export { metricsActions }
+export * from './metrics.selctors'
 
 export default metricsReducer
