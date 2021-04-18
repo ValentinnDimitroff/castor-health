@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { useHistory, useLocation } from 'react-router'
-import { Button, Typography } from '../../design'
+import { Button, MuiIcons, Typography } from '../../design'
 
 const useStyles = createUseStyles(theme => ({
     list: {
@@ -68,7 +68,15 @@ const MetricsBaseList = React.memo(({
                         <Typography variant="label" Component="span">Trend</Typography>
                     </li>
                     {records
-                        ? records.map(x => <RecordRow key={x.id} {...x} unit={unit} onEditClcik={onEditClcik} />)
+                        ? records.map((x, i) => (
+                            <RecordRow
+                                {...x}
+                                key={x.id}
+                                unit={unit}
+                                trend={i === 0 ? undefined : x.value > records[i - 1].value ? "up" : "down"}
+                                onEditClcik={onEditClcik}
+                            />
+                        ))
                         : <EmptyList />}
                 </ul>
             </div>
@@ -76,14 +84,29 @@ const MetricsBaseList = React.memo(({
     )
 })
 
-const RecordRow = React.memo(({ onEditClcik, ...props }) => {
+const useIconStyles = createUseStyles(theme => ({
+    upIcon: {
+       color: theme.colors.success.main,
+    },
+    downIcon: {
+        color: theme.colors.error.main,
+     }
+}))
+
+const RecordRow = React.memo(({ onEditClcik, trend, ...props }) => {
+    const classes = useIconStyles()
     const { date, value, unit } = props
 
     return (
         <li >
             <span>{date}</span>
             <span>{value} {unit}</span>
-            <span>--</span>
+            <span>{trend
+                ? trend === "up"
+                    ? <MuiIcons.ArrowDropUpIcon className={classes.upIcon}/>
+                    : <MuiIcons.ArrowDropDownIcon className={classes.downIcon} />
+                : null
+            }</span>
             <Button color="primary" onClick={() => onEditClcik(props)}>Edit</Button>
         </li>
     )
