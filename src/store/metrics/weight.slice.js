@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { commonMetricReducer } from '../_utils'
+import { calcMetricAverage, commonMetricReducer } from '../_utils'
 import db from '../../db.json'
 
 const name = 'weight'
 
 const initialState = {
     data: db[name],
-    average: 0
+    average: calcMetricAverage(db[name])
 }
 
 const weightSlice = createSlice({
